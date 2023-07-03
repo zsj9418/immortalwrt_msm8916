@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 /*
- * Copyright (C) Tianling Shen <cnsztl@immortalwrt.org>
+ * Copyright (C) 2023 Tianling Shen <cnsztl@immortalwrt.org>
  */
 
 /dts-v1/;
@@ -23,6 +23,10 @@
 
 	chosen {
 		stdout-path = "serial0:115200n8";
+	};
+
+	memory {
+		reg = <0 0x40000000 0 0x10000000>;
 	};
 
 	gpio-keys {
