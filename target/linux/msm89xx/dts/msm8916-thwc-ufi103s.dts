@@ -1,0 +1,116 @@
+// SPDX-License-Identifier: GPL-2.0-only
+
+/dts-v1/;
+
+#include "msm8916-ufi.dtsi"
+
+/ {
+	model = "ufi-103s 4G Modem Stick";
+	compatible = "thwc,ufi103s", "qcom,msm8916";
+};
+
+&button_restart {
+	gpios = <&msmgpio 37 GPIO_ACTIVE_HIGH>;
+};
+
+&led_r {
+	default-state = "on";
+	linux,default-trigger = "mmc0";
+	gpios = <&msmgpio 22 GPIO_ACTIVE_HIGH>;
+};
+
+&led_g {
+	default-state = "off";
+	linux,default-trigger = "heartbeat";
+	gpios = <&msmgpio 21 GPIO_ACTIVE_HIGH>;
+};
+
+&led_b {
+	default-state = "off";
+	linux,default-trigger = "phy0tx";
+	gpios = <&msmgpio 20 GPIO_ACTIVE_HIGH>;
+};
+
+&leds {
+	sim0-en {
+		gpios = <&msmgpio 0 GPIO_ACTIVE_HIGH>;
+		label = "sim0:en";
+		default-state = "on";
+	};
+
+	sim0-sel {
+		gpios = <&msmgpio 3 GPIO_ACTIVE_HIGH>;
+		label = "sim0:sel";
+		default-state = "on";
+	};
+
+	sim1-en {
+		gpios = <&msmgpio 1 GPIO_ACTIVE_HIGH>;
+		label = "sim1:en";
+		default-state = "off";
+	};
+
+	sim1-sel {
+		gpios = <&msmgpio 2 GPIO_ACTIVE_HIGH>;
+		label = "sim1:sel";
+		default-state = "off";
+	};
+};
+
+&mpss {
+	pinctrl-0 = <&esim_ctrl_default>;
+	pinctrl-names = "default";
+};
+
+&button_default {
+	pins = "gpio37";
+	bias-pull-down;
+};
+
+&gpio_leds_default {
+	pins = "gpio20", "gpio21", "gpio22";
+};
+
+&msmgpio {
+	/* This selects the eSIM card slot by default */
+	esim_ctrl_default: esim-enable {
+		sim-sel-pins {
+			pins = "gpio1", "gpio2";
+			bias-disable;
+			output-low;
+		};
+
+		esim-en-pins {
+			pins = "gpio0";
+			bias-disable;
+			output-high;
+		};
+
+		esim-sel-pins {
+			pins = "gpio3";
+			bias-disable;
+			output-high;
+		};
+	};
+
+	/* This selects the external SIM card slot by default */
+	sim_ctrl_default: sim-enable {
+		esim-sel-pins {
+			pins = "gpio0", "gpio3";
+			bias-disable;
+			output-low;
+		};
+
+		sim-en-pins {
+			pins = "gpio1";
+			bias-disable;
+			output-low;
+		};
+
+		sim-sel-pins {
+			pins = "gpio2";
+			bias-disable;
+			output-high;
+		};
+	};
+};

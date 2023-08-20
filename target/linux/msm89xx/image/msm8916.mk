@@ -24,8 +24,11 @@ endef
 TARGET_DEVICES += openstick-ufi001b
 
 define Device/openstick-ufi103s
-  $(Device/openstick-ufi001c)
+  $(Device/msm8916)
+  DEVICE_VENDOR := Zhihe
   DEVICE_MODEL := OpenStick UFI103S
+  DEVICE_DTS_DIR := ../dts
+  DEVICE_DTS := msm8916-thwc-ufi103s
   DEVICE_PACKAGES := openstick_tweak wpad-basic-wolfssl qcom-msm8916-modem-openstick-ufi103s-firmware qcom-msm8916-openstick-ufi103s-wcnss-firmware qcom-msm8916-wcnss-openstick-ufi103s-nv
 endef
 TARGET_DEVICES += openstick-ufi103s
